@@ -12,6 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.fis.springlearn.beans.Employee;
+import com.fis.springlearn.controller.EmployeeController;
+
 @SpringBootApplication
 public class SpringLearnApplication {
 	
@@ -20,12 +23,39 @@ public class SpringLearnApplication {
 		SpringApplication.run(SpringLearnApplication.class, args);
 		displayDate();
 		displayCountry();
+		displayEmployee();
+		getEmployeeController();
+	}
+	
+	static void getEmployeeController() {
+		LOGGER.info("START");
+		ApplicationContext context = new ClassPathXmlApplicationContext("employee.xml");
+		EmployeeController employeeController = context.getBean("controller", EmployeeController.class);
+		LOGGER.debug("EmployeeController : {}", employeeController);
+		LOGGER.info("END");
+	}
+	
+	public static void displayEmployeeControllerAnnotation(ApplicationContext applicationContext) {
+		LOGGER.info("START");
+		EmployeeController employeeController = applicationContext.getBean("employeeController",
+				EmployeeController.class);
+		LOGGER.debug("EmployeeController : {}", employeeController);
+		LOGGER.info("END");
+
+	}
+	
+	static void displayEmployee() {
+		LOGGER.debug("Start");
+		ApplicationContext context = new ClassPathXmlApplicationContext("Employee.xml");
+		Employee employee = context.getBean("employee", Employee.class);
+		LOGGER.debug("End");
 	}
 	
 	static void displayCountries() {
 		LOGGER.debug("Start");
 		ApplicationContext context = new ClassPathXmlApplicationContext("country.xml");
 		ArrayList<Country> countries = context.getBean("countryList", ArrayList.class);
+		LOGGER.debug("Countries : {}", countries.toString());
 		LOGGER.debug("END");
 	}
 	
