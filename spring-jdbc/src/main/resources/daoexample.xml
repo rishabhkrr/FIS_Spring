@@ -29,5 +29,27 @@
 		class="com.fis.springjdbc.product.ProductDAOImpl">
 		<property name="dataSource" ref="dataSourceHikari" />
 	</bean>
+	
+	<bean id="dataSource"
+		class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<property name="dataSourceClassName"
+			value="com.mysql.cj.jdbc.MysqlDataSource" />
+		<property name="maximumPoolSize" value="5" />
+		<property name="maxLifetime" value="30000" />
+		<property name="idleTimeout" value="30000" />
+		<property name="dataSourceProperties">
+			<props>
+				<prop key="url">jdbc:mysql://localhost:3306/test</prop>
+				<prop key="user">root</prop>
+				<prop key="password">Cloud@123$</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="employeeDao"
+		class="com.fis.springjdbc.employee.EmployeeDAOImpl">
+		<property name="dataSource" ref="dataSourceHikari" />
+	</bean>
+	
 
 </beans>
